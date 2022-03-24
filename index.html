@@ -35,10 +35,8 @@
 <h2>0. Contents</h2>
 <ol>
   <li><a href="#abstract">Abstract</a></li>
-  <!-- <li><a href="#Comparison">Demos -- Comparison with other methods</a></li>
-  <li><a href="#prediction">Demos -- The necessity of prosody components</a></li>
-  <li><a href="#control">Demos -- Speech synthesis by manual control</a></li>
-  <li><a href="#demo">Demos -- multi-speaker multi-style TTS with single-speaker single-style training data secnarios</a></li> -->
+  <li><a href="#Comparison">Demos -- Voice Conversion</a></li>
+  <li><a href="#Control">Demos -- Pitch Control</a></li>
 </ol>
 
 <br><br>
@@ -47,14 +45,241 @@
   Voice conversion aims at converting the timbre of the source speaker to another target while maintaining the content and prosody of the source speech. However, existing approaches still have some shortcomings in the converted speech because of the unsatisfied content disentanglement or the mismatch between the acoustic model and vocoder. In this paper, we propose a fully end-to-end method to conduct high-quality voice conversion, where the information perturbation is adopted to achieve effective timbre and content disentanglement. To further model the paralinguistic information of the source speech, we propose a speaker-dependent prosody module to convert the prosodic trend of the source speaker into the target domain. Besides, we also set up the one-shot voice conversion through a continuous speaker space modeling. Experimental results indicate that the proposed end-to-end method significantly outperforms the state-of-the-art models in terms of quality, naturalness, and speaker similarity.
 </p>
 	
-  <center><table frame=void rules=none>
-    <tr><center><img src='raw/fig/overall.png'></center></tr>
+  <table frame=void rules=none>
+    <tr > <td colspan=3><center><img src='raw/fig/overall.png'></center>  </td></tr>
     <tr>
-    <td><img src='raw/fig/content.png' border=0></td>
-    <td><img src='raw/fig/spknet.png' border=0></td>
-    <td><img src='raw/fig/pitchnet.png' border=0></td>
+    <td><center><img src='raw/fig/content.png' border=0></center></td>
+    <td><center><img src='raw/fig/spknet.png' border=0></center></td>
+    <td><center><img src='raw/fig/pitchnet.png' border=0></center></td>
     </tr></table>
 <br><br>
+
+
+<h2>2. Demos -- Voice Conversion<a name="Comparison"></a></h2>
+<!-- <h3>Corresponding to section 3.2 in our paper, below lists the samples that are synthesized for evaluations on the ability to generate the desired speaking style and timbre. We compared our proposed method with the Multi-R and PB on style similarity and speaker similarity.</h3> -->
+
+<table>
+  <tbody>
+    <!-- seen2seen -->
+    <tr>
+      <td style="text-align: center; width: 150px;" rowspan=2><strong>Scenario<strong></td>
+      <td style="text-align: center; width: 150px;" rowspan=2><strong>Target Speaker<strong></td>
+      <td style="text-align: center; width: 150px;" rowspan=2><strong>Source speech<strong></td>
+      <td style="text-align: center; width: 150px;" colspan=3><strong>Method<strong></td>
+    </tr>
+    <tr>
+      <td style="text-align: center; width: 150px;" rowspan=1><strong>AGAIN-VC<strong></td>
+      <td style="text-align: center; width: 150px;" rowspan=1><strong>NVC-Net<strong></td>
+      <td style="text-align: center; width: 150px;" rowspan=1><strong>Proposed<strong></td>
+    </tr>
+
+    <tr>
+        <td style="text-align: center; width: 150px;" rowspan=4><strong>seen2seen<strong></td>
+        <td style="text-align: center; width: 150px;" rowspan=1><strong>p314 (F)<strong><audio style="width: 150px;" controls="" preload="none" src="raw/1-seen2seen/ref1/p314_train_less_p225_352.wav"></td>
+        <td style="text-align: center"><strong>p225 (F)<strong></strong><audio style="width: 150px;" controls="" preload="none" src="raw/source/seen/p225_352.wav"></audio></td>
+        <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/1-seen2seen/again/p314_train_less_p225_352.wav"></audio></td>
+        <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/1-seen2seen/nvcnet/p314_train_less_p225_352.wav"></audio></td>
+        <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/1-seen2seen/porposed/p314_train_less_p225_352.wav"></audio></td>
+    </tr>
+    
+    <tr>
+      <td style="text-align: center; width: 150px;" rowspan=1><strong>p334 (M)<strong><audio style="width: 150px;" controls="" preload="none" src="raw/1-seen2seen/ref1/p334_train_less_p260_060.wav"></td>
+        <td style="text-align: center"><strong>p260 (M)<strong></strong><audio style="width: 150px;" controls="" preload="none" src="raw/source/seen/p260_060.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/1-seen2seen/again/p334_train_less_p260_060.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/1-seen2seen/nvcnet/p334_train_less_p260_060.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/1-seen2seen/porposed/p334_train_less_p260_060.wav"></audio></td>
+    </tr>
+
+    <tr>
+      <td style="text-align: center; width: 150px;" rowspan=1><strong>p334 (M)<strong><audio style="width: 150px;" controls="" preload="none" src="raw/1-seen2seen/ref1/p334_train_less_p225_352.wav"></td>
+      <td style="text-align: center"><strong>p225 (F)<strong></strong><audio style="width: 150px;" controls="" preload="none" src="raw/source/seen/p225_352.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/1-seen2seen/again/p334_train_less_p225_352.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/1-seen2seen/nvcnet/p334_train_less_p225_352.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/1-seen2seen/porposed/p334_train_less_p225_352.wav"></audio></td>
+  </tr>
+
+    <tr>
+      <td style="text-align: center; width: 150px;" rowspan=1><strong>p314 (F)<strong><audio style="width: 150px;" controls="" preload="none" src="raw/1-seen2seen/ref1/p314_train_less_p260_060.wav"></td>
+        <td style="text-align: center"><strong>p260 (M)<strong></strong><audio style="width: 150px;" controls="" preload="none" src="raw/source/seen/p260_060.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/1-seen2seen/again/p314_train_less_p260_060.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/1-seen2seen/nvcnet/p314_train_less_p260_060.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/1-seen2seen/porposed/p314_train_less_p260_060.wav"></audio></td>
+    </tr>
+
+
+    <!-- unseen2seen -->
+
+    <tr>
+          <td style="text-align: center; width: 150px;" rowspan=4><strong>unseen2seen<strong></td>
+            <td style="text-align: center; width: 150px;" rowspan=1><strong>p314 (F)<strong><audio style="width: 150px;" controls="" preload="none" src="raw/2-unseen2seen/ref1/p314_unseen_less_p351_004.wav"></td>
+              <td style="text-align: center"><strong>p351 (F)<strong></strong><audio style="width: 150px;" controls="" preload="none" src="raw/source/unseen/p351_004.wav"></audio></td>
+              <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/2-unseen2seen/again/p314_unseen_less_p351_004.wav"></audio></td>
+              <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/2-unseen2seen/nvcnet/p314_unseen_less_p351_004.wav"></audio></td>
+              <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/2-unseen2seen/porposed/p314_unseen_less_p351_004.wav"></audio></td>
+        
+    </tr>
+    
+    <tr>
+      <td style="text-align: center; width: 150px;" rowspan=1><strong>p334 (M)<strong><audio style="width: 150px;" controls="" preload="none" src="raw/2-unseen2seen/ref1/p334_unseen_less_p351_004.wav"></td>
+        <td style="text-align: center"><strong>p351 (F)<strong></strong><audio style="width: 150px;" controls="" preload="none" src="raw/source/unseen/p351_004.wav"></audio></td>
+        <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/2-unseen2seen/again/p334_unseen_less_p351_004.wav"></audio></td>
+        <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/2-unseen2seen/nvcnet/p334_unseen_less_p351_004.wav"></audio></td>
+        <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/2-unseen2seen/porposed/p334_unseen_less_p351_004.wav"></audio></td>
+    
+</tr>
+
+  <tr>
+    <td style="text-align: center; width: 150px;" rowspan=1><strong>p314 (F)<strong><audio style="width: 150px;" controls="" preload="none" src="raw/2-unseen2seen/ref1/p314_unseen_less_p363_008.wav"></td>
+      <td style="text-align: center"><strong>p363 (M)<strong></strong><audio style="width: 150px;" controls="" preload="none" src="raw/source/unseen/p363_008.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/2-unseen2seen/again/p314_unseen_less_p363_008.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/2-unseen2seen/nvcnet/p314_unseen_less_p363_008.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/2-unseen2seen/porposed/p314_unseen_less_p363_008.wav"></audio></td>
+
+  </tr>
+
+  <tr>
+    <td style="text-align: center; width: 150px;" rowspan=1><strong>p334 (M)<strong><audio style="width: 150px;" controls="" preload="none" src="raw/2-unseen2seen/ref1/p334_unseen_less_p363_008.wav"></td>
+      <td style="text-align: center"><strong>p363 (M)<strong></strong><audio style="width: 150px;" controls="" preload="none" src="raw/source/unseen/p363_008.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/2-unseen2seen/again/p334_unseen_less_p363_008.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/2-unseen2seen/nvcnet/p334_unseen_less_p363_008.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/2-unseen2seen/porposed/p334_unseen_less_p363_008.wav"></audio></td>
+
+  </tr>
+
+
+
+    <!-- seen2unseen -->
+
+    <tr>
+          <td style="text-align: center; width: 150px;" rowspan=4><strong>seen2unseen<strong></td>
+            <td style="text-align: center; width: 150px;" rowspan=1><strong>p351 (F)<strong><audio style="width: 150px;" controls="" preload="none" src="raw/3-seen2unseen/ref1/p351_train_less_p239_460.wav"></td>
+              <td style="text-align: center"><strong>p239 (F)<strong></strong><audio style="width: 150px;" controls="" preload="none" src="raw/source/seen/p239_460.wav"></audio></td>
+              <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/3-seen2unseen/again/p351_train_less_p239_460.wav"></audio></td>
+              <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/3-seen2unseen/nvcnet/p351_train_less_p239_460.wav"></audio></td>
+              <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/3-seen2unseen/porposed/p351_train_less_p239_460.wav"></audio></td>
+        
+    </tr>
+    
+  <tr>
+    <td style="text-align: center; width: 150px;" rowspan=1><strong>p347 (M)<strong><audio style="width: 150px;" controls="" preload="none" src="raw/3-seen2unseen/ref1/p347_train_less_p239_460.wav"></td>
+      <td style="text-align: center"><strong>p239 (F)<strong></strong><audio style="width: 150px;" controls="" preload="none" src="raw/source/seen/p239_460.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/3-seen2unseen/again/p347_train_less_p239_460.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/3-seen2unseen/nvcnet/p347_train_less_p239_460.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/3-seen2unseen/porposed/p347_train_less_p239_460.wav"></audio></td>
+  </tr>
+  <tr>
+    <td style="text-align: center; width: 150px;" rowspan=1><strong>p351 (F)<strong><audio style="width: 150px;" controls="" preload="none" src="raw/3-seen2unseen/ref1/p351_train_less_p260_060.wav"></td>
+      <td style="text-align: center"><strong>p260 (M)<strong></strong><audio style="width: 150px;" controls="" preload="none" src="raw/source/seen/p260_060.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/3-seen2unseen/again/p351_train_less_p260_060.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/3-seen2unseen/nvcnet/p351_train_less_p260_060.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/3-seen2unseen/porposed/p351_train_less_p260_060.wav"></audio></td>
+  </tr>
+  <tr>
+    <td style="text-align: center; width: 150px;" rowspan=1><strong>p347 (M)<strong><audio style="width: 150px;" controls="" preload="none" src="raw/3-seen2unseen/ref1/p347_train_less_p260_060.wav"></td>
+      <td style="text-align: center"><strong>p260 (M)<strong></strong><audio style="width: 150px;" controls="" preload="none" src="raw/source/seen/p260_060.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/3-seen2unseen/again/p347_train_less_p260_060.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/3-seen2unseen/nvcnet/p347_train_less_p260_060.wav"></audio></td>
+      <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/3-seen2unseen/porposed/p347_train_less_p260_060.wav"></audio></td>
+  </tr>
+
+    <!-- unseen2unseen -->
+
+    <tr>
+          <td style="text-align: center; width: 150px;" rowspan=4><strong>unseen2unseen<strong></td>
+            <td style="text-align: center; width: 150px;" rowspan=1><strong>p351 (F)<strong><audio style="width: 150px;" controls="" preload="none" src="raw/4-unseen2unseen/ref1/p351_unseen_less_p362_003.wav"></td>
+              <td style="text-align: center"><strong>p262<strong></strong><audio style="width: 150px;" controls="" preload="none" src="raw/source/unseen/p362_003.wav"></audio></td>
+              <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/4-unseen2unseen/again/p351_unseen_less_p362_003.wav"></audio></td>
+              <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/4-unseen2unseen/nvcnet/p351_unseen_less_p362_003.wav"></audio></td>
+              <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/4-unseen2unseen/porposed/p351_unseen_less_p362_003.wav"></audio></td>
+        
+    </tr>
+    
+    <tr>
+      <td style="text-align: center; width: 150px;" rowspan=1><strong>p347 (M)<strong><audio style="width: 150px;" controls="" preload="none" src="raw/4-unseen2unseen/ref1/p347_unseen_less_p362_003.wav"></td>
+        <td style="text-align: center"><strong>p262<strong></strong><audio style="width: 150px;" controls="" preload="none" src="raw/source/unseen/p362_003.wav"></audio></td>
+        <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/4-unseen2unseen/again/p347_unseen_less_p362_003.wav"></audio></td>
+        <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/4-unseen2unseen/nvcnet/p347_unseen_less_p362_003.wav"></audio></td>
+        <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/4-unseen2unseen/porposed/p347_unseen_less_p362_003.wav"></audio></td>
+    </tr>
+
+    <tr>
+      <td style="text-align: center; width: 150px;" rowspan=1><strong>p351 (F)<strong><audio style="width: 150px;" controls="" preload="none" src="raw/4-unseen2unseen/ref1/p351_unseen_less_p363_008.wav"></td>
+        <td style="text-align: center"><strong>p363 (M)<strong></strong><audio style="width: 150px;" controls="" preload="none" src="raw/source/unseen/p363_008.wav"></audio></td>
+        <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/4-unseen2unseen/again/p351_unseen_less_p363_008.wav"></audio></td>
+        <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/4-unseen2unseen/nvcnet/p351_unseen_less_p363_008.wav"></audio></td>
+        <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/4-unseen2unseen/porposed/p351_unseen_less_p363_008.wav"></audio></td>
+    </tr>
+
+    <tr>
+      <td style="text-align: center; width: 150px;" rowspan=1><strong>p347 (M)<strong><audio style="width: 150px;" controls="" preload="none" src="raw/4-unseen2unseen/ref1/p347_unseen_less_p363_008.wav"></td>
+        <td style="text-align: center"><strong>p363 (M)<strong></strong><audio style="width: 150px;" controls="" preload="none" src="raw/source/unseen/p363_008.wav"></audio></td>
+        <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/4-unseen2unseen/again/p347_unseen_less_p363_008.wav"></audio></td>
+        <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/4-unseen2unseen/nvcnet/p347_unseen_less_p363_008.wav"></audio></td>
+        <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/4-unseen2unseen/porposed/p347_unseen_less_p363_008.wav"></audio></td>
+    </tr>
+
+  </tbody>
+
+
+
+
+
+
+</table>
+
+<h2>2. Demos -- Pitch Control<a name="Control"></a></h2>
+
+
+<table>
+  <tbody>
+    <!-- seen2seen -->
+    <tr>
+      <td style="text-align: center; width: 150px;" rowspan=2><strong>Target Speaker<strong></td>
+      <!-- <td style="text-align: center; width: 150px;" rowspan=2><strong>Target Speaker<strong></td> -->
+      <td style="text-align: center; width: 150px;" rowspan=2><strong>Source speech<strong></td>
+      <td style="text-align: center; width: 150px;" colspan=3><strong>Method<strong></td>
+    </tr>
+    <tr>
+      <td style="text-align: center; width: 150px;" rowspan=1><strong>decrease<strong></td>
+      <td style="text-align: center; width: 150px;" rowspan=1><strong>not adjust<strong></td>
+      <td style="text-align: center; width: 150px;" rowspan=1><strong>increase<strong></td>
+    </tr>
+
+    <tr>
+        <td style="text-align: center; width: 150px;" rowspan=4><audio style="width: 150px;" controls="" preload="none" src="raw/1-seen2seen/ref1/p314_train_less_p225_352.wav"></audio></td>
+        <td style="text-align: center; width: 150px;" rowspan=1><audio style="width: 150px;" controls="" preload="none" src="raw/source/unseen/p347_004.wav"></td>
+        <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/control/p314_unseen_decrease/p347_004.wav"></audio></td>
+        <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/control/p314_unseen_0/p347_004.wav"></audio></td>
+        <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/control/p314_unseen_increase/p347_004.wav"></audio></td>
+    </tr>
+    
+    <tr>
+      <td style="text-align: center; width: 150px;" rowspan=1><audio style="width: 150px;" controls="" preload="none" src="raw/source/unseen/p347_005.wav"></td>
+        <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/control/p314_unseen_decrease/p347_005.wav"></audio></td>
+        <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/control/p314_unseen_0/p347_005.wav"></audio></td>
+        <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/control/p314_unseen_increase/p347_005.wav"></audio></td>
+    </tr>
+
+    <tr>
+      <td style="text-align: center; width: 150px;" rowspan=1><audio style="width: 150px;" controls="" preload="none" src="raw/source/unseen/p351_004.wav"></td>
+        <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/control/p314_unseen_decrease/p351_004.wav"></audio></td>
+        <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/control/p314_unseen_0/p351_004.wav"></audio></td>
+        <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/control/p314_unseen_increase/p351_004.wav"></audio></td>
+  </tr>
+
+    <tr>
+      <td style="text-align: center; width: 150px;" rowspan=1><audio style="width: 150px;" controls="" preload="none" src="raw/source/unseen/p351_005.wav"></td>
+        <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/control/p314_unseen_decrease/p351_005.wav"></audio></td>
+        <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/control/p314_unseen_0/p351_005.wav"></audio></td>
+        <td style="text-align: center"><audio style="width: 150px;" controls="" preload="none" src="raw/control/p314_unseen_increase/p351_005.wav"></audio></td>
+    </tr>
+
+
+
+  </tbody>
+
+
+
 
 </table>
       <footer class="site-footer">
